@@ -1,0 +1,86 @@
+html,body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+body{
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+    word-wrap: break-word;
+    background-size: 100%,100%;
+    font-family: "Microsoft Yahei","Hiragino Sans GB",Helvetica,"Helvetica Neue","微软雅黑",Tahoma,Arial,sans-serif;
+}
+/*html5*/
+article,aside,dialog,footer,header,section,footer,nav,figure,menu{
+    display:block;
+}
+
+header{
+    position: relative;
+    height: 40px;
+    padding: 10px 0;
+    border-bottom: 1px lightgray solid;
+}
+#header-container{
+    margin: 0 150px;
+    height: 100%;
+}
+#header-title{
+    display: inline-block;
+    height: 100%;
+    font-size: 30px;
+    line-height: 40px;
+    text-decoration: none;
+    color: #3c4146;
+    transition: color 0.2s ;
+}
+#header-title:hover{
+    color: #222;
+}
+#header-user{
+    margin:0;
+    padding: 0;
+    list-style-type: none;
+    float: right;
+    height: 100%;
+}
+#header-user li{
+    position: relative;
+    display: block;
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 5px;
+}
+li.header-user-head{
+    width: 40px;
+    height: 40px;
+}
+li.header-user-head img{
+    position: absolute;
+    margin: auto;
+    left:0;
+    right:0;
+    top:0;
+    bottom: 0;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+}
+li.header-username span{
+    font-size: 20px;
+    color: #3c4146;
+}
+li.header-user-dropdown img{
+    position: absolute;
+    margin: auto;
+    width: 15px;
+    height: 7px;
+    top: 0;
+    bottom: 0;
+    left: -5px;
+    cursor: pointer;
+
+}
