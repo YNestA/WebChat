@@ -1,0 +1,60 @@
+#warp{
+    position: relative;
+    width: 100%;
+    height: 80%;
+}
+#login{
+    width: 20%;
+    height: 275px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 25px;
+    border:1px lightgray solid;
+    border-radius: 5px;
+    line-height: 30px;
+    background-color: rgb(255,255,255);
+}
+
+#login-form{
+    position: relative;
+    height: 100%;
+}
+
+#login-form input[type='text'],#login input[type='password']{
+    width: 100%;
+    height: 2.5em;
+    border: 1px lightgray solid;
+    border-radius:3px;
+    box-sizing: border-box;
+    box-shadow: inset 0 0 2px 1px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+}
+#login-form input:focus{
+    box-shadow: 0 0 2px 2px rgba(0,0,0,0.15);
+    border-color: lightseagreen;
+}
+#login-form input[type='submit']{
+    width: 100%;
+    height: 2.5em;
+    border: 1px lightgray solid;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: darkcyan;
+    color: white;
+    margin-top: 15px;
+}
+
+#form-register{
+    display: block;
+    margin-top: 10px;
+    width: 100%;
+    text-align: right;
+}
+#register-a{
+    color: peru;
+    text-decoration: none;
+}

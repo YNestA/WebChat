@@ -3,3 +3,18 @@
 {% block css %}
     <link rel="stylesheet" type="text/css" href="/static/css/login.css">
 {% endblock %}
+{% block warp %}
+    <div id="warp">
+        <div id="login">
+            <form action="" id="login-form" method="post">
+                {% csrf_token %}
+                <label>Username </label>
+                <input type="text" name="username">
+                <label>Password </label>
+                <input type="password" name="password">
+                <input type="submit" value="Sign   in">
+                <span id="form-register">新用户?<a href="javascript:;" id="register-a">点此注册</a></span>
+            </form>
+        </div>
+    </div>
+{% endblock %}

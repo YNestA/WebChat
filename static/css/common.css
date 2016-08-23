@@ -9,6 +9,7 @@ body{
     line-height: 1.5;
     word-wrap: break-word;
     background-size: 100%,100%;
+    background-color: rgb(249,249,249);
     font-family: "Microsoft Yahei","Hiragino Sans GB",Helvetica,"Helvetica Neue","微软雅黑",Tahoma,Arial,sans-serif;
 }
 /*html5*/
