@@ -25,6 +25,7 @@
 }
 
 #login-form input[type='text'],#login input[type='password']{
+    display: block;
     width: 100%;
     height: 2.5em;
     border: 1px lightgray solid;
@@ -32,12 +33,14 @@
     box-sizing: border-box;
     box-shadow: inset 0 0 2px 1px rgba(0,0,0,0.1);
     margin-bottom: 15px;
+    tab-index: 2;
 }
 #login-form input:focus{
     box-shadow: 0 0 2px 2px rgba(0,0,0,0.15);
     border-color: lightseagreen;
 }
 #login-form input[type='submit']{
+    display: block;
     width: 100%;
     height: 2.5em;
     border: 1px lightgray solid;
@@ -45,7 +48,7 @@
     cursor: pointer;
     background-color: darkcyan;
     color: white;
-    margin-top: 15px;
+    margin-top: 30px;
 }
 
 #form-register{
@@ -57,4 +60,90 @@
 #register-a{
     color: peru;
     text-decoration: none;
+}
+#shade{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: darkslategray;
+    opacity: 0.1;
+    z-index: 12000;
+}
+div.register-container{
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 20%;
+    height:375px;
+    background-color: rgba(0,0,0,0.75);
+    box-shadow: 0 0 1px 2px rgba(0,0,0,0.1);
+    z-index: 13000;
+    padding: 25px;
+    border: 1px gray solid;
+    border-radius: 5px;
+    transform: scale(0,0);
+    transition: transform 0.2s linear;
+}
+div.register-open-anmi{
+    transform: scale(1,1);
+}
+div.register-close-anmi{
+    transform: scale(0,0);
+}
+
+#register-close{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+#register-close img{
+    width: 100%;
+    height: 100%;
+}
+div.register-title{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 2em;
+    color: whitesmoke;
+    margin-bottom: 20px;
+}
+#register-form input{
+    display: block;
+    width: 100%;
+    height: 2.5em;
+    border: 1px lightgray solid;
+    border-radius:3px;
+    box-sizing: border-box;
+    box-shadow: inset 0 0 2px 1px rgba(0,0,0,0.1);
+    margin-bottom: 25px;
+    tab-index: 2;
+
+}
+#register-form input:focus{
+    border-color: lightseagreen;
+    box-shadow: 0 0 2px 1px rgba(255,255,255,0.2);
+}
+#do-register{
+    display: block;
+    width: 100%;
+    cursor: pointer;
+    color: whitesmoke;
+    background-color: darkseagreen;
+    text-align: center;
+    font-size: 1.75em;
+    border-radius: 5px;
+    transition: all 0.2s linear;
+}
+#do-register:hover{
+    background-color: seagreen;
 }

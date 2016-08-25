@@ -2,6 +2,7 @@
 {% block title %}WebChat{% endblock %}
 {% block css %}
     <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/static/MyDialogBox/css/box.css">
 {% endblock %}
 {% block warp %}
     <div id="warp">
@@ -17,4 +18,8 @@
             </form>
         </div>
     </div>
+{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="/static/MyDialogBox/js/jquery.myDialogBox-1.0.js"></script>
+    <script type="text/javascript" src="/static/js/login.js"></script>
 {% endblock %}
