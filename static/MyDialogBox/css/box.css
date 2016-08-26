@@ -6,10 +6,10 @@
     bottom: 0px;
     background-color: darkslategrey;
     opacity: 0.1;
-    z-index: 12000;
+    z-index: 100000;
 }
 div.alert-box,div.confirm-box{
-    z-index: 13000;
+    z-index: 100000;
     position: fixed;
     background-color:rgba(39,72,98,0.95);
     margin: auto;
@@ -125,6 +125,7 @@ button.confirm-false{
     font-size: 18px;
     color:whitesmoke;
     word-wrap: break-word;
+    z-index: 100000;
 }
 .tip-message{
     display: block;
@@ -135,14 +136,26 @@ button.confirm-false{
     width: 0;
     height: 0;
     border: 10px solid;
-    left: 10%;
 }
-.tip-arrow{
+.tip-arrow-bottom{
+    left:10%;
     top: -19px;
     border-color:transparent transparent rgb(66,66,99) transparent;
 }
-.tip-arrow-border{
+.tip-arrow-border-bottom{
+    left:10%;
     top: -20px;
     border-color:transparent transparent lightgray transparent;
 }
+.tip-arrow-right{
+    top:20%;
+    left:-19px;
+    border-color: transparent rgb(66,66,99) transparent transparent;
+}
+.tip-arrow-border-right{
+    top:20%;
+    left:-20px;
+    border-color: transparent lightgray transparent transparent;
+}
+
 

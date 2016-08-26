@@ -74,22 +74,39 @@
     });
     $.fn.extend({
         myTip:function (options) {
-            var $theEle=$(this);
-            var defaults={
-                message:"",
-                width:250,
-            };
-            var opts=$.extend(defaults,options);
-            var $tipBox=$("<div class='tip-box'><div style='position: relative;'><span class='tip-message'>"+opts.message+"</span><div class='tip-arrow-border'></div><div class='tip-arrow'></div></div></div>");
-            $('body').append($tipBox);
-            $tipBox.css({
-                'left':$theEle.offset().left+'px',
-                'top':$theEle.offset().top+$theEle.height()+10,
-                'width':opts.width,
-            });
-            $("body").click(function () {
-                $tipBox.remove();
-            });
+            if($(this).length) {
+                var $theEle = $(this);
+                var defaults = {
+                    message: "",
+                    width: 250,
+                    direction:"bottom"
+                };
+                var opts = $.extend(defaults, options);
+                var $tipBox = $("<div class='tip-box'><div style='position: relative;'><span class='tip-message'>" + opts.message + "</span><div class='tip-arrow-border'></div><div class='tip-arrow'></div></div></div>");
+                $theEle.parent().append($tipBox);
+                $tipBox.find(".tip-arrow").addClass("tip-arrow-"+opts.direction);
+                $tipBox.find(".tip-arrow-border").addClass("tip-arrow-border-"+opts.direction);
+
+                var tipLeft,tipTop;
+                if(opts.direction=="bottom"){
+                    tipLeft=$theEle.position().left;
+                    tipTop=$theEle.position().top+$theEle.outerHeight()+10;
+                }else if(opts.direction=="right"){
+                    tipLeft=$theEle.position().left+$theEle.outerWidth()+10;
+                    tipTop=$theEle.position().top;
+                }
+                $tipBox.css({
+                    'left': tipLeft,
+                    'top':  tipTop,
+                    'width': opts.width,
+                });
+                $theEle.click(function () {
+                    $tipBox.remove();
+                });
+                $theEle.focus(function () {
+                    $tipBox.remove();
+                })
+            }
         },
     });
 })(jQuery);
