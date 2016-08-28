@@ -8,8 +8,8 @@
     <div id="warp">
         <div id="login">
             <form action="" id="login-form" method="post">
-                <div class="error-message">{{ login_error }}</div>
                 {% csrf_token %}
+                {% if login_error %}<div class="error-message">{{ login_error }}</div>{% endif %}
                 <label>Username </label>
                 <input type="text" name="username">
                 <label>Password </label>

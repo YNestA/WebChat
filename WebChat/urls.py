@@ -23,5 +23,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root':STATICFILES_DIRS[0],}),
     url(r'webchat/',include('chat.urls')),
-    url(r'^$',views.login),
+    url(r'^$',views.homepage),
 ]

@@ -21,6 +21,52 @@ function closeRegister() {
     },200);
 }
 
+function checkRegister(XMLHttpRequest) {
+    var $registerForm=$("#register-form"),
+        $inputs=$("#register-form input"),
+        flag=true;
+    var doErrorTip=function ($input,mess,dire) {
+        flag=false;
+        $input.myTip({
+            message:mess,
+            direction:dire,
+        });
+    }
+    var checkInput={
+        username:function ($theInput) {
+            if($theInput.val().length>30){
+                doErrorTip($theInput,'用户昵称长度不可超过30','right');
+            }else if(!/^[0-9a-zA-Z\-\_\+]+$/g.test($theInput.val())){
+                doErrorTip($theInput,'用户名只能包含字母，数字，-，_，+，','right');
+            }
+        },
+        password:function ($theInput) {
+            if($theInput.val().length<6 ||$theInput.val().lenght>30){
+                doErrorTip($theInput,'密码长度必须在6-30之间','right');
+            }
+        },
+        passwordR:function ($theInput) {
+            if($theInput.val()!=$("#register-form input[name='password']").val()){
+                doErrorTip($theInput,"两次密码输入不一致",'right');
+            }
+        },
+        email:function ($theInput) {
+            if (!/^([0-9a-zA-Z\_\-])+@([0-9a-zA-Z\_\-])+(\.[0-9a-zA-Z\_\-])+/g.test($theInput.val())){
+                doErrorTip($theInput,"邮箱格式有误",'right');
+            }
+        }
+    }
+    for(var i=0;i<$inputs.length;i++){
+        var $theInput=$inputs.eq(i);
+        if(!$theInput.val()){
+            doErrorTip($theInput,"此项不能为空",'right');
+        }else{
+            checkInput[$theInput.attr('name')]($theInput);
+        }
+    }
+    return flag;
+}
+
 function showRegister() {
     var closeIcons='/static/image/register/close_s.png',
         closeIconh='/static/image/register/close_h.png';
@@ -35,43 +81,33 @@ function showRegister() {
     $("#register-close").click(closeRegister);
 
     var doRegister=function () {
-        var $registerForm=$("#register-form"),
-             $inputs=$("#register-form input");
-        var checkInput={
-            username:function ($theInput) {
-                if($theInput.val().length>14){
-                    $theInput.myTip({message:'用户昵称长度不可超过14',direction:"right"});
-                }else if(!/^[^\s]*$/g.test($theInput.val())){
-                    $theInput.myTip({message:'用户名不可包含空白字符',direction:"right"});
+        var $registerForm=$("#register-form");
+        $.ajax({
+            url: '/webchat/register/',
+            type:'POST',
+            data:{
+                username:$("#register-form input[name='username']").val(),
+                password:$("#register-form input[name='password']").val(),
+                passwordR:$("#register-form input[name='passwordR").val(),
+                email:$("#register-form input[name='email']").val(),
+            },
+            beforeSend:checkRegister,
+            success:function (data,status) {
+                var theJson=eval('('+data+')');
+                console.log(0);
+                if(theJson['success']=='True'){
+                    console.log(1);
+                    $.myAlert("注册成功，3s后转至主页");
+                    setTimeout(function () {
+                        window.location.href=theJson['userURL'];
+                    },3);
+                }else{
+                    $("#register-form input[name='"+theJson['errorName']+"']").myTip({message:theJson['message'],direction:'right'});
                 }
             },
-            password:function ($theInput) {
-                if($theInput.val().length<6 ||$theInput.val().lenght>30){
-                    $theInput.myTip({message:'密码长度必须在6-30之间',direction:"right"});
-                }
-            },
-            passwordR:function ($theInput) {
-                if($theInput.val()!=$("#register-form input[name='password']").val()){
-                    $theInput.myTip({message:"两次密码输入不一致",direction:"right"});
-                }
-            },
-            email:function ($theInput) {
-                if (!/^([0-9a-zA-Z\_\-])+@([0-9a-zA-Z\_\-])+(\.[0-9a-zA-Z\_\-])+/g.test($theInput.val())){
-                    $theInput.myTip({message:"邮箱格式有误",direction:"right"});
-                }
-            }
-        }
-        for(var i=0;i<$inputs.length;i++){
-            console.log(i);
-            var $theInput=$inputs.eq(i);
-            if(!$theInput.val()){
-                $theInput.myTip({message:"此项不能为空",direction:"right"});
-            }else{
-                checkInput[$theInput.attr('name')]($theInput);
-            }
-        }
-
-    };
+        });
+    }
+    ;
     $("#do-register").click(doRegister);
 }
 
@@ -79,8 +115,14 @@ $(document).ready(function () {
     $("#register-a").click(showRegister);
     $("#login-form").submit(function () {
         if(!($("#login-form :input[name='username']").val()&& $("#login-form :input[name='password']").val())){
-            $("#login-form .error-message").text("用户名或密码不能为空").show();
+            var $errorDiv=$("#login-form div.error-message");
+            if($errorDiv.length){
+                $errorDiv.text("用户名或密码不能为空");
+            }else {
+                $(this).prepend("<div class='error-message'>用户名或密码不能为空</div>");
+            }
             return false;
         }
+        $("#login-form :submit").attr('disabled',true);
     });
 });
