@@ -100,7 +100,7 @@ function showRegister() {
                     $.myAlert("注册成功，3s后转至主页");
                     setTimeout(function () {
                         window.location.href=theJson['userURL'];
-                    },3);
+                    },3000);
                 }else{
                     $("#register-form input[name='"+theJson['errorName']+"']").myTip({message:theJson['message'],direction:'right'});
                 }
