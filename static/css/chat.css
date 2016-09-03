@@ -1,0 +1,245 @@
+#warp{
+    width: 100%;
+    position: relative;
+}
+#chat{
+    margin: 0 150px;
+    background-color: #EEE;
+    height: 100%;
+    box-shadow: 0px 2px 5px 2px rgba(0,0,0,0.15);
+}
+#persons{
+    position: relative;
+    float: left;
+    width: 250px;
+    height: 100%;
+    background-color: rgb(23,50,70);
+    overflow: hidden;
+}
+#persons-search{
+    position: relative;
+    height: 30px;
+    padding: 10px;
+    line-height: 30px;
+    background-color: rgb(153,77,82);
+    overflow: hidden;
+}
+#persons-search-a{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url(/static/image/chat/search.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+#persons-search input{
+    position: relative;
+    margin-left: 30px;
+    width: 80%;
+    height: 30px;
+    border: none;
+    background-color: rgb(153,77,82);
+    color: white;
+}
+#persons-tab{
+    height: 60px;
+    background: rgb(227,230,195);
+    border-bottom: 1px lightgray solid;
+}
+#persons-tab span{
+    position: relative;
+    display: inline-block;
+    width: 50%;
+    height: 58px;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s linear;
+}
+#persons-tab span:hover{
+    background-color: rgba(100,100,100,0.1);
+}
+#persons-tab span a{
+    position: absolute;
+    margin: auto;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    height: 80%;
+    width: 100%;
+    background: center center no-repeat;
+    background-size: 35% 80%;
+}
+#persons-tab span.friends-tab a{
+    background-image:url(/static/image/chat/friend.png);
+    border-left:1px lightgray dashed ;
+}
+#persons-tab span.dialogs-tab a{
+    background-image: url(/static/image/chat/dialog_1.png);
+}
+#persons-tab span.current{
+    border-bottom: 3px solid rgb(217,116,43);
+}
+#dialogs-friends{
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+#dialogs-friends-container{
+    position: absolute;
+    overflow: hidden;
+    width: 200%;
+    height: 100%;
+}
+#dialogs,#friends{
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 50%;
+    top:0;
+}
+#dialogs{
+    left: 0;
+}
+#friends{
+    right: 0;
+}
+#dialogs li,#friends li{
+    position:relative;
+    display: block;
+    height: 80px;
+    cursor: pointer;
+    border-bottom: 1px rgb(18,40,40) solid;
+    transition: background-color 0.25s linear;
+}
+#dialogs li:hover,#friends li:hover{
+    background-color: rgba(0,0,0,0.2);
+}
+li.now{
+    background-color: rgba(0,0,0,0.2);
+}
+#dialogs li div.dialog-img,#friends li div.friend-img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    height: 50px;
+    width: 50px;
+    margin:15px;
+    overflow: hidden;
+}
+#dialogs li div.dialog-img img,#friends li div.friend-img img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+#dialogs li div.dialog-info{
+    width: 170px;
+    margin-left: 80px;
+    height: 80px;
+    overflow: hidden;
+
+}
+div.dialog-head{
+    position: relative;
+    margin-top: 15px;
+    height: 20px;
+}
+div.dialog-head span.dialog-name{
+    display: inline-block;
+    color: white;
+    width: 100px;
+    font-size: 20px;
+    line-height: 20px;
+    height: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+div.dialog-head span.dialog-time{
+    position: absolute;
+    top: 3px;
+    right: 10px;
+    display: block;
+    color: gray;
+    font-size: 12px;
+    line-height: 20px;
+    height: 20px;
+}
+div.dialog-message{
+    padding: 5px 0;
+    position: relative;
+}
+div.dialog-message span.dialog-content{
+    display: inline-block;
+    color: darkgray;
+    width: 120px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+div.dialog-message span.dialog-count{
+    display: block;
+    background-color: firebrick;
+    color: white;
+    width: 16px;
+    height: 16px;
+    font-size: 12px;
+    line-height: 16px;
+    border-radius: 50%;
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    text-align: center;
+    overflow: hidden;
+}
+
+div.friend-name{
+    margin-left: 80px;
+    color: whitesmoke;
+    height: 80px;
+    line-height: 80px;
+    font-size: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#dialogs-scroll,#friends-scroll{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 5px;
+    height: 80px;
+    background-color: rgb(80,100,120);
+    border-radius: 5px;
+    display: none;
+    z-index: 5;
+}
+
+#chatroom{
+    position: relative;
+    margin-left: 250px;
+    height: 100%;
+}
+#chatroom-nochat{
+    position: absolute;
+    z-index: 1;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    font-size: 24px;
+    width: 200px;
+    height: 24px;
+    line-height: 24px;
+    color: lightslategrey;
+}
+

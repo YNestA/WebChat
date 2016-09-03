@@ -10,9 +10,13 @@ class UserProfile(models.Model):
     TEL=models.CharField(max_length=15)
     created_time=models.DateTimeField(default=datetime.now)
     head_img=models.CharField(max_length=200,default="/static/image/common/user.jpg")
+    friends=models.ManyToManyField(User,related_name="friends")
+
     def __unicode__(self):
         return self.user.username
 
+    def get_not_read(self):
+        return self.user.as_to_user.filter(checked=False).order_by('-time')
 
 def create_user_profile(sender,instance,created,**kw):
     if created:
@@ -48,6 +52,7 @@ class UTUMessage(models.Model):
     time=models.DateTimeField(default=datetime.now)
     content=models.TextField(max_length=800)
     enable=models.BooleanField(default=True)
+    checked=models.BooleanField(default=False)
 
     def __unicode__(self):
         return ' | '.join([self.from_user.username,self.to_user.username,self.content[:20]])

@@ -144,3 +144,8 @@ $(document).ajaxSend(function(event, xhr, settings) {
         xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
     }
 });
+$(document).ready(function () {
+   $("a").focus(function () {
+       $(this).blur();
+   })
+});

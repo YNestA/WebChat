@@ -3,10 +3,11 @@ from django.shortcuts import render,render_to_response,HttpResponseRedirect,Http
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login
-from  tools import check_register
+from tools import check_register
 import json
 from django.contrib.auth.models import User
 from django.http import Http404
+from models import *
 
 def homepage(request):
     return login_user(request);
@@ -48,10 +49,33 @@ def register(request):
             })
             return HttpResponse(the_json)
 
-    return HttpResponse("hello")
+    return HttpResponse()
 
 
 @login_required(login_url="/login")
 def user_chat(request,username):
-
-    return HttpResponse("hello,"+request.user.username)
+    if request.method=='GET':
+        not_read=request.user.user_profile.get_not_read()
+        res,lastest=[],[]
+        for record in not_read:
+            if record.from_user not in lastest:
+                res.append([record,1])
+                lastest.append(record.from_user)
+            else:
+                for x in res:
+                    if x[0].from_user==record.from_user:
+                        x[1]+=1
+                        break
+        dialogs=[{
+            'img': x[0].from_user.user_profile.head_img,
+            'name': x[0].from_user.username,
+            'time':x[0].time.strftime('%m-%d'),
+            'message':x[0].content,
+            'count':x[1],
+        } for x in res]
+        friends=[{
+            'img':friend.user_profile.head_img,
+            'name':friend.username,
+         }for friend in request.user.user_profile.friends.all()]
+        return render_to_response('chat.html',{'dialogs':dialogs,'friends':friends},context_instance=RequestContext(request),)
+    return render_to_response('chat.html',context_instance=RequestContext(request),)

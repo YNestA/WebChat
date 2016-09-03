@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}{{ user.name }}{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="/static/css/chat.css">
+{% endblock %}
+{% block warp %}
+    <div id="warp">
+        <div id="chat">
+            <div id="persons">
+                <div id="persons-search"><a id="persons-search-a" href="javascript:;"></a><input type="text" placeholder="查找联系人"></div>
+                <div id="persons-tab"><span class="dialogs-tab current" name="dialogs"><a href="javascript:;"></a></span><span class="friends-tab" name="friends"><a href="javascript:;"></a></span></div>
+                <div id="dialogs-friends">
+                    <div id="dialogs-friends-container">
+                    <ul id="dialogs">
+                        {% for dialog in dialogs %}
+                            {% if forloop.first %}<li class="now">{% else %}<li>{% endif %}
+                                <div class="dialog-img"><img src="{{ dialog.img }}"></div>
+                                <div class="dialog-info">
+                                    <div class="dialog-head">
+                                        <span class="dialog-name">{{ dialog.name }}</span>
+                                        <span class="dialog-time">{{ dialog.time }}</span></div>
+                                    <div class="dialog-message"><span class="dialog-content">{{ dialog.message }}</span><span class="dialog-count">{{ dialog.count }}</span></div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <ul id="friends">
+                        {% for friend in friends %}
+                            <li>
+                                <div class="friend-img"><img src="{{ friend.img }}"></div>
+                                <div class="friend-name">
+                                    {{ friend.name }}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    </div>
+                    <div id="dialogs-scroll"></div>
+                    <div id="friends-scroll"></div>
+                </div>
+            </div>
+            <div id="chatroom">
+                <div id="chatroom-nochat">还未选中聊天哦～</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="/static/js/chat.js"></script>
+{% endblock %}
