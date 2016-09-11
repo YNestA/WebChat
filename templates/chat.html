@@ -11,36 +11,58 @@
                 <div id="persons-tab"><span class="dialogs-tab current" name="dialogs"><a href="javascript:;"></a></span><span class="friends-tab" name="friends"><a href="javascript:;"></a></span></div>
                 <div id="dialogs-friends">
                     <div id="dialogs-friends-container">
-                    <ul id="dialogs">
-                        {% for dialog in dialogs %}
-                            {% if forloop.first %}<li class="now">{% else %}<li>{% endif %}
-                                <div class="dialog-img"><img src="{{ dialog.img }}"></div>
-                                <div class="dialog-info">
-                                    <div class="dialog-head">
-                                        <span class="dialog-name">{{ dialog.name }}</span>
-                                        <span class="dialog-time">{{ dialog.time }}</span></div>
-                                    <div class="dialog-message"><span class="dialog-content">{{ dialog.message }}</span><span class="dialog-count">{{ dialog.count }}</span></div>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                    <ul id="friends">
-                        {% for friend in friends %}
-                            <li>
-                                <div class="friend-img"><img src="{{ friend.img }}"></div>
-                                <div class="friend-name">
-                                    {{ friend.name }}
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                        <div id="dialogs-container">
+                        <ul id="dialogs">
+                            {% for dialog in dialogs %}
+                                {% if forloop.first %}<li class="">{% else %}<li>{% endif %}
+                                    <div class="dialog-img"><img src="{{ dialog.img }}"></div>
+                                    <div class="dialog-info">
+                                        <div class="dialog-head">
+                                            <span class="dialog-name">{{ dialog.name }}</span>
+                                            <span class="dialog-time">{{ dialog.time }}</span></div>
+                                        <div class="dialog-message"><span class="dialog-content">{{ dialog.message }}</span><span class="dialog-count">{{ dialog.count }}</span></div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <div id="dialogs-scroll"></div>
+                        </div>
+                        <div id="friends-container">
+                        <ul id="friends">
+                            {% for friend in friends %}
+                                <li>
+                                    <div class="friend-img"><img src="{{ friend.img }}"></div>
+                                    <div class="friend-name">
+                                        {{ friend.name }}
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <div id="friends-scroll"></div>
+                        </div>
                     </div>
-                    <div id="dialogs-scroll"></div>
-                    <div id="friends-scroll"></div>
                 </div>
             </div>
             <div id="chatroom">
                 <div id="chatroom-nochat">还未选中聊天哦～</div>
+                <div id="room">
+                    <div id="room-title">
+                        <span id="room-name"></span>
+                        <span class="close"></span>
+                    </div>
+                    <div id="room-messages">
+                        <div id="room-content">
+                        </div>
+                        <div class="chat-scroll"></div>
+                    </div>
+                    <div id="chat-send">
+                        <ul class="chat-tool"><li><a href="javascript:;"><img src="/static/image/chat/emotion_btn.png"></a></li></ul>
+                        <div class="message-input">
+                        <textarea spellcheck="false"></textarea>
+                        </div>
+                        <div class="send-tip">按Enter发送消息/Ctrl+Enter换行</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -8,6 +8,8 @@ import json
 from django.contrib.auth.models import User
 from django.http import Http404
 from models import *
+from datetime import datetime
+import json
 
 def homepage(request):
     return login_user(request);
@@ -69,7 +71,7 @@ def user_chat(request,username):
         dialogs=[{
             'img': x[0].from_user.user_profile.head_img,
             'name': x[0].from_user.username,
-            'time':x[0].time.strftime('%m-%d'),
+            'time':trans_left_dialog_time(x[0].time),
             'message':x[0].content,
             'count':x[1],
         } for x in res]
@@ -79,3 +81,25 @@ def user_chat(request,username):
          }for friend in request.user.user_profile.friends.all()]
         return render_to_response('chat.html',{'dialogs':dialogs,'friends':friends},context_instance=RequestContext(request),)
     return render_to_response('chat.html',context_instance=RequestContext(request),)
+
+def choose_chat(request):
+    if request.method=='POST':
+        try:
+            from_user=User.objects.get(username=request.POST.get('username',''))
+            dialogs,json_dict=request.user.user_profile.get_chat_user(from_user),{'res':'success','dialogs':[]}
+            for dialog in dialogs:
+                dialog_dict={'time':trans_right_dialog_time(dialog[0].time),
+                             'messages':[],}
+                for message in dialog:
+                    dialog_dict['messages'].append({
+                        'name':message.from_user.username,
+                        'head':message.from_user.user_profile.head_img,
+                        'content':message.content,
+                        'time':message.time.strftime('%Y-%m-%d %H:%M:%S'),
+                    })
+                json_dict['dialogs'].append(dialog_dict)
+            return HttpResponse(json.dumps(json_dict))
+        except Exception as e:
+            print e
+            return HttpResponse(json.dumps({'res':'fail'}))
+    return HttpResponse('You shall not pass!')

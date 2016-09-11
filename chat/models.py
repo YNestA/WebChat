@@ -2,7 +2,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
+import time as my_time
 from django.db.models.signals import post_save
+from tools import *
 
 
 class UserProfile(models.Model):
@@ -14,6 +16,27 @@ class UserProfile(models.Model):
 
     def __unicode__(self):
         return self.user.username
+
+    def __compare(self,x,y):
+        if x.time>y.time: return -1
+        if x.time<y.time: return 1
+        if x.time==y.time: return 0
+
+
+    def get_chat_user(self,from_user,before_time=None,count=15):
+        if before_time is None:
+            res,records=[],list(self.user.as_to_user.filter(from_user=from_user).order_by('-time'))
+            #for record in records:
+            #    record.checked=True
+            #    record.save()
+            records.extend(list(from_user.as_to_user.filter(from_user=self.user).order_by('-time')))
+            records.sort(self.__compare)
+            for x in records:
+                if not res or datetime_to_timestamp(x.time)-datetime_to_timestamp(res[-1][-1].time)<-120:
+                    res.append([x])
+                else:
+                    res[-1].append(x)
+        return res
 
     def get_not_read(self):
         return self.user.as_to_user.filter(checked=False).order_by('-time')
