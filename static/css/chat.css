@@ -264,6 +264,7 @@ div.friend-name{
     background-color:#EEE;
     z-index: 5;
     display: none;
+    overflow: hidden;
 }
 #room-title{
     margin: 0 20px;
@@ -373,7 +374,7 @@ div.me-message-content p,div.aim-message-content p{
 }
 
 #chat-send{
-    height: 180px;
+    height: 160px;
 }
 div.chat-scroll{
     position: absolute;
@@ -422,4 +423,9 @@ div.send-tip{
     font-size: 14px;
     color: gray;
     text-align: right;
+}
+
+#chat-loading{
+    width: 100%;
+    text-align: center;
 }

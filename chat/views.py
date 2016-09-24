@@ -82,11 +82,11 @@ def user_chat(request,username):
         return render_to_response('chat.html',{'dialogs':dialogs,'friends':friends},context_instance=RequestContext(request),)
     return render_to_response('chat.html',context_instance=RequestContext(request),)
 
-def choose_chat(request):
+def get_chat_record(request):
     if request.method=='POST':
         try:
-            from_user=User.objects.get(username=request.POST.get('username',''))
-            dialogs,json_dict=request.user.user_profile.get_chat_user(from_user),{'res':'success','dialogs':[]}
+            from_user,time=User.objects.get(username=request.POST.get('username','')),request.POST.get('time',None)
+            dialogs,json_dict=request.user.user_profile.get_chat_by_user(from_user,before_time=time),{'res':'success','dialogs':[]}
             for dialog in dialogs:
                 dialog_dict={'time':trans_right_dialog_time(dialog[0].time),
                              'messages':[],}
@@ -103,3 +103,55 @@ def choose_chat(request):
             print e
             return HttpResponse(json.dumps({'res':'fail'}))
     return HttpResponse('You shall not pass!')
+
+def send_utu_chat(request):
+    if request.method=='POST':
+        try:
+            to_user=User.objects.get(username=request.POST.get('username',''))
+            message=UTUMessage(from_user=request.user,to_user=to_user,content=request.POST.get('message',''))
+            message.save()
+            return HttpResponse(json.dumps({'res':'success',
+                                            'time':message.time.strftime('%Y-%m-%d %H:%M:%S'),
+                                            'name':message.from_user.username,
+                                            'content':message.content,
+                                            'head':message.from_user.user_profile.head_img,
+                                            }))
+        except Exception as e:
+            print e
+            return HttpResponse(json.dumps({'res':'fail'}))
+    return HttpResponse('You shall not pass!')
+
+def polling(request):
+    if request.method=='POST':
+        try:
+            notChecked=request.user.user_profile.get_not_read();
+            records,exist=[],[]
+            for x in notChecked:
+                from_user_name=x.from_user.username
+                record={
+                    'head':x.from_user.user_profile.head_img,
+                    'name':from_user_name,
+                    'time':x.time.strftime('%Y-%m-%d %H:%M:%S'),
+                    'content':x.content,
+                }
+                if from_user_name not in exist:
+                    records.append([from_user_name,[record]])
+                    exist.append(from_user_name)
+                else:
+                    for y in records:
+                        if from_user_name == y[0]:
+                            y[1].append(record)
+            return HttpResponse(json.dumps({'res':'success','records':records}))
+        except Exception as e:
+            print e
+            return HttpResponse(json.dumps({'res':'fail'}))
+    return HttpResponse('You shall not pass!')
+
+def check_someone_messages(request):
+    if request.method=="POST":
+        try:
+            request.user.user_profile.set_someone_read(request.POST.get('username',""))
+        except Exception as e:
+            print e
+            return HttpResponse("You shall not pass!")
+    return  HttpResponse("You shall not pass!")

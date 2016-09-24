@@ -123,6 +123,8 @@ $(document).ready(function () {
             }
             return false;
         }
+        location.replace(location.href);
         $("#login-form :submit").attr('disabled',true);
     });
+
 });
