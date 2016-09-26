@@ -11,4 +11,5 @@ urlpatterns=patterns('',
     url(r'^get-more-records/$',views.get_chat_record),
     url(r'^polling/$',views.polling),
     url(r'^check-someone-messages/',views.check_someone_messages),
+    url(r'^sign-out/',views.sign_out),
 )

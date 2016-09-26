@@ -126,5 +126,4 @@ $(document).ready(function () {
         location.replace(location.href);
         $("#login-form :submit").attr('disabled',true);
     });
-
 });

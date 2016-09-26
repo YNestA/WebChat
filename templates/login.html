@@ -7,7 +7,7 @@
 {% block warp %}
     <div id="warp">
         <div id="login">
-            <form action="" id="login-form" method="post">
+            <form action="/webchat/" id="login-form" method="post">
                 {% csrf_token %}
                 {% if login_error %}<div class="error-message">{{ login_error }}</div>{% endif %}
                 <label>Username </label>

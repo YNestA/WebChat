@@ -387,6 +387,32 @@ function polling() {
         },
     });
 }
+function headerUserDrop(event) {
+    event.stopPropagation();
+    var $dropdownList=$("#header-dropdown-list");
+    $dropdownList.show().click(function (event) {
+        event.stopPropagation();
+    });
+    $("html,body").bind("click",hideDropDown=function () {
+        $dropdownList.hide();
+        $("html,body").unbind("click",hideDropDown);
+    });
+}
+function signOut(event) {
+    $.ajax({
+        url:"/webchat/sign-out/",
+        type:"POST",
+        data:{
+            
+        },
+        success:function (data,textStatus) {
+            if(data==="success") {
+                //location.replace(location.href);
+                location.href="/webchat/"
+            }
+        }
+    });
+}
 $(document).ready(function () {
     initHeight();
     initScroll($("#dialogs"),$("#dialogs-container"),$("#dialogs-scroll"),"top");
@@ -400,5 +426,7 @@ $(document).ready(function () {
     });
     $("#dialogs-container").click(chooseDialog);
     $("#friends-container").click(chooseFriend);
-    var pollingID=setInterval(polling,2000);
+    var pollingID=setInterval(polling,1500);
+    $("li.header-user-dropdown").click(headerUserDrop);
+    $("#header-dropdown-list ul li.sign-out").click(signOut);
 });

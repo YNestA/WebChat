@@ -22,7 +22,15 @@
                 <ul id="header-user">
                 <li class="header-user-head"><img src="{{ user.user_profile.head_img }}"></li>
                 <li class="header-username"><span >{{ user.username }}</span></li>
-                <li class="header-user-dropdown"><img src="/static/image/common/drop_down.png"></li>
+                <li class="header-user-dropdown"><img src="/static/image/common/drop_down.png">
+                    <div id="header-dropdown-list">
+                        <ul>
+                            <li class="sign-out">退出</li>
+                        </ul>
+                        <div class="dropdown-arrow-border"></div>
+                        <div class="dropdown-arrow"></div>
+                    </div>
+                </li>
                 </ul>
             {% endif %}
         </div>

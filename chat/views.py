@@ -2,7 +2,7 @@
 from django.shortcuts import render,render_to_response,HttpResponseRedirect,HttpResponse
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from tools import check_register
 import json
 from django.contrib.auth.models import User
@@ -24,7 +24,7 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request,user)
-            return HttpResponseRedirect('webchat/u/'+user.username)
+            return HttpResponseRedirect('/webchat/u/'+user.username)
         else:
             return render_to_response('login.html',{'login_error':'用户名或密码错误'},context_instance=RequestContext(request))
     return render_to_response('login.html',context_instance=RequestContext(request),)
@@ -155,3 +155,13 @@ def check_someone_messages(request):
             print e
             return HttpResponse("You shall not pass!")
     return  HttpResponse("You shall not pass!")
+
+def sign_out(request):
+    if request.method=="POST":
+        try:
+            logout(request)
+            return HttpResponse("success")
+        except Exception as e:
+            print e
+            return HttpResponse("fail")
+    return HttpResponse("You shall not pass!")
